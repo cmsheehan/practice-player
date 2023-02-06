@@ -54,6 +54,11 @@
         animation: flash 1s ease-out;
     }
 
+    .mdl-tooltip {
+        white-space: normal !important;
+        word-wrap: break-word !important;
+    }
+
     @keyframes flash {
         0% {
             background-color: rgb(96, 125, 139);
@@ -79,7 +84,7 @@
         </div>
         <div class="video-container">
             <!-- <pre id="myVideo"></pre> -->
-            <div id="player"></div>
+            <div class="mdl-shadow--2dp" id="player"></div>
         </div>
         <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
             <tbody>

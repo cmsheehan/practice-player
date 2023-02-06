@@ -6,7 +6,8 @@ function onYouTubeIframeAPIReady() {
         height: '390',
         width: '640',
         playerVars: {
-            'disablekb': 1
+            'disablekb': 1,
+            'origin': 'https://cmsheehan.github.io' 
         },
         events: {
             'onReady': onPlayerReady
