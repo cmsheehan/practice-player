@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PracticePlayer</title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue_grey-indigo.min.css">
@@ -30,6 +29,8 @@
         .input-container {
             margin-top: 50px;
             width: 75%;
+            display: flex;
+            align-items: center;
         }
         .video-container {
             margin-top: 20px;
@@ -39,10 +40,36 @@
         .mdl-textfield {
             width: 500px;
         }
-        table {
-            margin-top: 20px;
-            color: rgba(0, 0, 0, 0.87);
-            font-weight: bold;
+        .info-icon {
+            font-size: 24px;
+            cursor: pointer;
+            margin-left: 10px;
+            color: #757575;
+        }
+        .info-icon:hover {
+            color: #000;
+        }
+        .tooltip {
+            display: none;
+            position: absolute;
+            background: #f4f4f4;
+            color: #333;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            max-width: 250px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            font-size: 14px;
+            z-index: 1000;
+        }
+        .tooltip:after {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 20px;
+            border-width: 8px;
+            border-style: solid;
+            border-color: transparent transparent #f4f4f4 transparent;
         }
     </style>
 </head>
@@ -52,6 +79,24 @@
             <form id="videoForm">
                 <div class="mdl-textfield mdl-js-textfield">
                     <input class="mdl-textfield__input" type="text" id="videoUrl" placeholder="Enter YouTube URL">
+                </div>
+                <i class="material-icons info-icon" id="infoIcon">info</i>
+                <div class="tooltip" id="tooltip">
+                    <strong>How to Use:</strong><br>
+                    <ul style="padding-left: 20px; margin: 5px 0;">
+                        <li>Click outside the video to enable controls.</li>
+                        <li><strong>Arrow Keys:</strong>
+                            <ul style="margin: 5px 0;">
+                                <li>Right: Skip forward 5 seconds</li>
+                                <li>Left: Skip backward 5 seconds</li>
+                                <li>Up: Increase playback speed</li>
+                                <li>Down: Decrease playback speed</li>
+                            </ul>
+                        </li>
+                        <li><strong>Space Bar:</strong> Play/Pause</li>
+                        <li><strong>q-p:</strong> Set markers</li>
+                        <li><strong>1-9:</strong> Jump to markers</li>
+                    </ul>
                 </div>
             </form>
         </div>
@@ -97,5 +142,18 @@
             </tbody>
         </table>
     </div>
+    <script>
+        const infoIcon = document.getElementById('infoIcon');
+        const tooltip = document.getElementById('tooltip');
+        infoIcon.addEventListener('mouseover', () => {
+            const rect = infoIcon.getBoundingClientRect();
+            tooltip.style.left = `${rect.right + 10}px`;
+            tooltip.style.top = `${rect.top - 10}px`;
+            tooltip.style.display = 'block';
+        });
+        infoIcon.addEventListener('mouseout', () => {
+            tooltip.style.display = 'none';
+        });
+    </script>
 </body>
 </html>
