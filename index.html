@@ -1,147 +1,100 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <script src="https://www.youtube.com/iframe_api"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="script.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Key Binding</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue_grey-indigo.min.css" />
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue_grey-indigo.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-    <style type="text/css">
-    body {
-        align-items: center;
-        background-color: #fafdfa;
-    }
-
-    .container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .input-container {
-        display: flex;
-        justify-content: center;
-        align-content: center;
-        margin-top: 50px;
-        width: 75%;
-        /*text-align: center;*/
-        /*background-color: red*/
-    }
-
-    #player {
-        height: 540px;
-        width: 960px;
-    }
-
-    .video-container {
-        height: 540px;
-        width: 960px;
-        align-content: center;
-    }
-
-
-    .mdl-textfield {
-        width: 500px;
-    }
-
-    table {
-        margin-top: 20px;
-    }
-
-    td.flash {
-        animation: flash 1s ease-out;
-    }
-
-    .mdl-tooltip {
-        white-space: normal !important;
-        word-wrap: break-word !important;
-    }
-
-    @keyframes flash {
-        0% {
-            background-color: rgb(96, 125, 139);
+    <script src="script.js"></script>
+    <style>
+        body {
+            background-color: #fafdfa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
         }
-
-        100% {
-            background-color: lightgray;
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-    }
+        .input-container {
+            margin-top: 50px;
+            width: 75%;
+        }
+        .video-container {
+            margin-top: 20px;
+            width: 960px;
+            height: 540px;
+        }
+        .mdl-textfield {
+            width: 500px;
+        }
+        table {
+            margin-top: 20px;
+            color: rgba(0, 0, 0, 0.87);
+            font-weight: bold;
+        }
     </style>
 </head>
-
 <body>
     <div class="container">
         <div class="input-container">
-            <form action="#">
-                <div class="mdl-textfield mdl-js-textfield input">
-                    <input class="mdl-textfield__input" type="text" id="videoUrl">
-                    <label class="mdl-textfield__label" for="sample1">URL...</label>
+            <form id="videoForm">
+                <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="text" id="videoUrl" placeholder="Enter YouTube URL">
                 </div>
             </form>
-            <!-- <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="loadButton">Load</button> -->
         </div>
-        <div class="video-container">
-            <!-- <pre id="myVideo"></pre> -->
-            <div class="mdl-shadow--2dp" id="player"></div>
-        </div>
-        <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+        <div class="video-container mdl-shadow--2dp" id="player"></div>
+        <table id="controls" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
             <tbody>
                 <tr>
-                    <td class="mdl-data-table__cell--non-numeric" id="tt1"><b>Set Key</b><span class="mdl-tooltip" for="tt1">Press any of these keys to set the time for associated play key.</span></td>
-                    <td class="mdl-data-table__cell--non-numeric" id="binding-q">q</td>
-                    <td class="mdl-data-table__cell--non-numeric" id="binding-w">w</td>
-                    <td class="mdl-data-table__cell--non-numeric" id="binding-e">e</td>
-                    <td class="mdl-data-table__cell--non-numeric" id="binding-r">r</td>
-                    <td class="mdl-data-table__cell--non-numeric" id="binding-t">t</td>
-                    <td class="mdl-data-table__cell--non-numeric" id="binding-y">y</td>
-                    <td class="mdl-data-table__cell--non-numeric" id="binding-u">u</td>
-                    <td class="mdl-data-table__cell--non-numeric" id="binding-i">i</td>
-                    <td class="mdl-data-table__cell--non-numeric" id="binding-o">o</td>
+                    <td><b>Set Key</b></td>
+                    <td id="binding-q">q</td>
+                    <td id="binding-w">w</td>
+                    <td id="binding-e">e</td>
+                    <td id="binding-r">r</td>
+                    <td id="binding-t">t</td>
+                    <td id="binding-y">y</td>
+                    <td id="binding-u">u</td>
+                    <td id="binding-i">i</td>
+                    <td id="binding-o">o</td>
                 </tr>
                 <tr>
-                    <td class="mdl-data-table__cell--non-numeric" id="tt2"><b>Play Key</b><span class="mdl-tooltip" for="tt2">Press any of these keys to play the video at the set time.</span></td>
-                    <td class="mdl-data-table__cell--non-numeric" id="binding-1">1</td>
-                    <td class="mdl-data-table__cell--non-numeric" id="binding-2">2</td>
-                    <td class="mdl-data-table__cell--non-numeric" id="binding-3">3</td>
-                    <td class="mdl-data-table__cell--non-numeric" id="binding-4">4</td>
-                    <td class="mdl-data-table__cell--non-numeric" id="binding-5">5</td>
-                    <td class="mdl-data-table__cell--non-numeric" id="binding-6">6</td>
-                    <td class="mdl-data-table__cell--non-numeric" id="binding-7">7</td>
-                    <td class="mdl-data-table__cell--non-numeric" id="binding-8">8</td>
-                    <td class="mdl-data-table__cell--non-numeric" id="binding-9">9</td>
+                    <td><b>Play Key</b></td>
+                    <td id="binding-1">1</td>
+                    <td id="binding-2">2</td>
+                    <td id="binding-3">3</td>
+                    <td id="binding-4">4</td>
+                    <td id="binding-5">5</td>
+                    <td id="binding-6">6</td>
+                    <td id="binding-7">7</td>
+                    <td id="binding-8">8</td>
+                    <td id="binding-9">9</td>
                 </tr>
                 <tr>
-                    <td class="mdl-data-table__cell--non-numeric" id="tt3"><b>Time</b><span class="mdl-tooltip" for="tt3">The video play time</span></td>
-                    <td class="mdl-data-table__cell--non-numeric" id="key1">00:00</td>
-                    <td class="mdl-data-table__cell--non-numeric" id="key2">00:00</td>
-                    <td class="mdl-data-table__cell--non-numeric" id="key3">00:00</td>
-                    <td class="mdl-data-table__cell--non-numeric" id="key4">00:00</td>
-                    <td class="mdl-data-table__cell--non-numeric" id="key5">00:00</td>
-                    <td class="mdl-data-table__cell--non-numeric" id="key6">00:00</td>
-                    <td class="mdl-data-table__cell--non-numeric" id="key7">00:00</td>
-                    <td class="mdl-data-table__cell--non-numeric" id="key8">00:00</td>
-                    <td class="mdl-data-table__cell--non-numeric" id="key9">00:00</td>
+                    <td><b>Times</b></td>
+                    <td id="key1">00:00</td>
+                    <td id="key2">00:00</td>
+                    <td id="key3">00:00</td>
+                    <td id="key4">00:00</td>
+                    <td id="key5">00:00</td>
+                    <td id="key6">00:00</td>
+                    <td id="key7">00:00</td>
+                    <td id="key8">00:00</td>
+                    <td id="key9">00:00</td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <br>
-    <br>
-    <!--     <div>
-        <label>Play: Enter</label>
-        <label>Stop: Space bar</label>
-        <label id="key1">Key 1: 0</label>
-        <label id="key2">Key 2: 0</label>
-        <label id="key3">Key 3: 0</label>
-        <label id="key4">Key 4: 0</label>
-        <label id="key5">Key 5: 0</label>
-        <label id="key6">Key 6: 0</label>
-        <label id="key7">Key 7: 0</label>
-        <label id="key8">Key 8: 0</label>
-        <label id="key9">Key 9: 0</label> 
-    </div> -->
 </body>
-
 </html>
