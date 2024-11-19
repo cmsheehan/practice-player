@@ -28,14 +28,9 @@
         }
         .input-container {
             margin-top: 50px;
-            width: 75%;
             display: flex;
+            justify-content: center;
             align-items: center;
-        }
-        .video-container {
-            margin-top: 20px;
-            width: 960px;
-            height: 540px;
         }
         .mdl-textfield {
             width: 500px;
@@ -71,12 +66,22 @@
             border-style: solid;
             border-color: transparent transparent #f4f4f4 transparent;
         }
+        .video-container {
+            margin-top: 20px;
+            width: 900px;
+            height: 518px;
+        }
+        table {
+            margin-top: 20px;
+            color: rgba(0, 0, 0, 0.87);
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="input-container">
-            <form id="videoForm">
+            <form id="videoForm" style="display: flex; align-items: center;">
                 <div class="mdl-textfield mdl-js-textfield">
                     <input class="mdl-textfield__input" type="text" id="videoUrl" placeholder="Enter YouTube URL">
                 </div>
@@ -94,7 +99,7 @@
                             </ul>
                         </li>
                         <li><strong>Space Bar:</strong> Play/Pause</li>
-                        <li><strong>q-p:</strong> Set markers</li>
+                        <li><strong>Q-O:</strong> Set markers</li>
                         <li><strong>1-9:</strong> Jump to markers</li>
                     </ul>
                 </div>
